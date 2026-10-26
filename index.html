@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Descubre y compra productos japoneses para tu despensa: snacks, salsas, fideos, té y mucho más. Envíos en España.">
+  <title>GENKI — Japón en tu despensa</title>
+  <style>
+    :root {
+      --ink: #20251f;
+      --muted: #626b62;
+      --paper: #fbf8f1;
+      --white: #fffefa;
+      --red: #d94335;
+      --red-dark: #b93227;
+      --green: #244f3c;
+      --line: #e7e0d5;
+      --gold: #e9bd61;
+      --radius: 18px;
+      --shadow: 0 12px 32px rgba(32,37,31,.08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--paper); color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.5;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    button, .button { cursor: pointer; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    .topbar { background: var(--green); color: white; text-align: center; padding: 9px 12px; font-size: .82rem; letter-spacing: .02em; }
+    header { background: rgba(251,248,241,.95); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px); }
+    .nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 1.45rem; letter-spacing: .08em; }
+    .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; color: white; background: var(--red); font-size: .8rem; letter-spacing: 0; }
+    .navlinks { display: flex; gap: 26px; align-items: center; color: #444c43; font-size: .92rem; }
+    .navlinks a:hover { color: var(--red); }
+    .cart { border: 1px solid var(--line); border-radius: 999px; padding: 9px 14px; background: var(--white); font-weight: 700; white-space: nowrap; }
+    .hero { padding: 56px 0 64px; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1.03fr .97fr; gap: 42px; align-items: center; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--green); text-transform: uppercase; font-weight: 800; letter-spacing: .12em; font-size: .76rem; }
+    .eyebrow:before { content: ""; width: 24px; height: 2px; background: var(--red); }
+    h1 { font-size: clamp(2.65rem, 5.2vw, 4.65rem); line-height: .99; letter-spacing: -.055em; margin: 18px 0; max-width: 650px; }
+    h1 span { color: var(--red); }
+    .hero p { color: var(--muted); max-width: 510px; font-size: 1.08rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 27px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 999px; padding: 14px 21px; font-weight: 800; transition: transform .15s, background .15s; }
+    .button:hover { transform: translateY(-2px); }
+    .primary { background: var(--red); color: white; }
+    .primary:hover { background: var(--red-dark); }
+    .secondary { border: 1px solid var(--line); background: var(--white); }
+    .microcopy { margin-top: 16px; font-size: .82rem !important; }
+    .hero-art { position: relative; min-height: 400px; display: grid; place-items: center; }
+    .art-circle { width: min(390px, 90%); aspect-ratio: 1; border-radius: 50%; background: #f0dfbd; position: relative; display: grid; place-items: center; }
+    .sun { position: absolute; width: 60%; aspect-ratio: 1; background: var(--red); border-radius: 50%; top: 8%; right: -3%; opacity: .95; }
+    .bowl { position: relative; z-index: 1; width: 66%; height: 42%; border-radius: 12% 12% 48% 48%; background: #fffdf7; border: 8px solid #e6e1d5; box-shadow: 0 18px 20px rgba(40,30,20,.12); transform: rotate(-8deg); display: flex; align-items: center; justify-content: center; gap: 8px; overflow: hidden; }
+    .bowl:before { content: ""; position: absolute; width: 110%; height: 25px; background: #d9b26b; top: 16%; border-radius: 50%; }
+    .noodle { position: absolute; top: 14%; left: 16%; width: 66%; height: 48%; border: 5px solid #e8bd68; border-radius: 50%; transform: rotate(16deg); }
+    .noodle.n2 { transform: rotate(-20deg); top: 22%; left: 12%; border-color: #f2d99d; }
+    .topping { position: absolute; z-index: 2; width: 35px; height: 35px; border-radius: 50%; background: #4c8058; border: 4px solid #f6f0df; }
+    .t1 { top: 30%; left: 28%; } .t2 { top: 35%; right: 24%; background: #df7c53; }
+    .t3 { top: 55%; left: 43%; background: #e9c66e; }
+    .chop { position: absolute; width: 58%; height: 8px; border-radius: 99px; background: #9a603e; right: -2%; top: 24%; transform: rotate(35deg); z-index: 3; }
+    .sticker { position: absolute; z-index: 4; bottom: 8%; left: 2%; background: var(--green); color: white; width: 105px; height: 105px; border-radius: 50%; display: grid; place-items: center; text-align: center; font-size: .78rem; font-weight: 800; line-height: 1.25; transform: rotate(-12deg); border: 5px solid var(--paper); }
+    .float-card { position: absolute; z-index: 4; top: 7%; left: 0; background: var(--white); padding: 12px 16px; border-radius: 13px; box-shadow: var(--shadow); font-size: .84rem; font-weight: 800; }
+    .trust { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #f6f0e5; }
+    .trust-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; padding: 19px 0; text-align: center; font-size: .88rem; font-weight: 700; }
+    .trust-row span { color: var(--green); margin-right: 7px; }
+    section { padding: 74px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
+    .section-head h2, .story h2, .offer h2 { margin: 10px 0 0; font-size: clamp(2rem, 3.7vw, 3rem); line-height: 1.04; letter-spacing: -.04em; }
+    .section-head p { max-width: 390px; color: var(--muted); margin: 0; }
+    .products { display: grid; grid-template-columns: repeat(4,1fr); gap: 17px; }
+    .product { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; transition: transform .2s, box-shadow .2s; }
+    .product:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .product-art { min-height: 180px; display: grid; place-items: center; position: relative; background: #f3ead8; overflow: hidden; }
+    .product:nth-child(2) .product-art { background: #e7eee2; }
+    .product:nth-child(3) .product-art { background: #f5e3df; }
+    .product:nth-child(4) .product-art { background: #e8e5f1; }
+    .pack { width: 82px; height: 112px; border-radius: 8px 8px 13px 13px; background: #d54a39; color: white; display: grid; place-items: center; text-align: center; font-weight: 900; box-shadow: 8px 9px 0 rgba(32,37,31,.09); transform: rotate(-5deg); padding: 8px; }
+    .pack small { font-size: .56rem; letter-spacing: .12em; }
+    .product:nth-child(2) .pack { background: #344e3c; transform: rotate(4deg); }
+    .product:nth-child(3) .pack { background: #f0c96f; color: #453629; transform: rotate(-2deg); }
+    .product:nth-child(4) .pack { background: #6f6a9b; transform: rotate(5deg); }
+    .product-body { padding: 17px; }
+    .tag { color: var(--green); font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+    .product h3 { margin: 6px 0; font-size: 1.05rem; }
+    .product p { color: var(--muted); font-size: .88rem; min-height: 42px; margin: 0 0 15px; }
+    .product-bottom { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .price { font-weight: 900; font-size: 1.1rem; }
+    .add { width: 37px; height: 37px; border: 0; border-radius: 50%; color: white; background: var(--green); font-size: 1.35rem; line-height: 1; }
+    .price-note { font-size: .78rem; color: var(--muted); margin-top: 16px; }
+    .story-wrap { background: var(--green); color: white; }
+    .story { display: grid; grid-template-columns: .9fr 1.1fr; gap: 48px; align-items: center; }
+    .story .eyebrow { color: #d5e3d4; }
+    .story p { color: #d5e0d7; max-width: 570px; }
+    .story-art { min-height: 270px; background: #d6e1d2; border-radius: 22px; display: grid; place-items: center; position: relative; overflow: hidden; }
+    .story-art .big-jp { font-size: clamp(6rem, 15vw, 10rem); font-weight: 900; color: var(--red); line-height: 1; transform: rotate(-8deg); }
+    .story-art:before, .story-art:after { content: ""; position: absolute; border: 2px solid rgba(36,79,60,.28); border-radius: 50%; width: 250px; height: 250px; }
+    .story-art:after { width: 330px; height: 330px; }
+    .story-art .caption { position: absolute; bottom: 20px; right: 20px; color: var(--green); font-size: .78rem; font-weight: 800; letter-spacing: .12em; }
+    .offer { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 28px; background: #f1dfbd; border-radius: 24px; padding: clamp(26px,5vw,52px); }
+    .offer p { color: #5b5c4d; margin-bottom: 0; }
+    .offer-code { background: var(--white); border: 1px dashed #b89c68; border-radius: 14px; padding: 16px 22px; text-align: center; min-width: 165px; }
+    .offer-code strong { display: block; font-size: 1.35rem; letter-spacing: .08em; }
+    .offer-code small { color: var(--muted); }
+    .delivery-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .delivery-card { padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); }
+    .delivery-icon { font-size: 1.65rem; }
+    .delivery-card h3 { margin: 10px 0 5px; }
+    .delivery-card p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .newsletter { background: #f2e9dc; }
+    .newsletter-row { display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .newsletter h2 { margin: 0 0 8px; font-size: clamp(1.8rem,3.4vw,2.5rem); letter-spacing: -.04em; }
+    .newsletter p { margin: 0; color: var(--muted); }
+    .signup { display: flex; gap: 8px; width: min(460px,100%); }
+    .signup input { flex: 1; min-width: 0; border: 1px solid #d8cebf; background: var(--white); border-radius: 999px; padding: 13px 17px; outline-color: var(--green); }
+    footer { background: #202a23; color: #e8ede7; padding: 32px 0; }
+    .footer-row { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+    footer p { color: #b8c4b9; margin: 5px 0 0; font-size: .82rem; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; color: #d5dfd6; font-size: .86rem; }
+    .toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 150%); background: var(--ink); color: white; border-radius: 999px; padding: 12px 20px; box-shadow: var(--shadow); z-index: 20; transition: transform .25s; font-size: .9rem; }
+    .toast.show { transform: translate(-50%,0); }
+    @media (max-width: 850px) {
+      .navlinks { gap: 14px; }
+      .hero-grid { gap: 16px; }
+      .hero-art { min-height: 330px; }
+      .products { grid-template-columns: repeat(2,1fr); }
+      .story { gap: 28px; }
+    }
+    @media (max-width: 620px) {
+      .wrap { width: min(100% - 28px, 520px); }
+      .topbar { font-size: .74rem; }
+      .nav { min-height: 62px; }
+      .navlinks { display: none; }
+      .brand { font-size: 1.25rem; }
+      .cart { padding: 8px 11px; font-size: .85rem; }
+      .hero { padding: 40px 0 36px; }
+      .hero-grid { grid-template-columns: 1fr; }
+      h1 { font-size: clamp(2.75rem, 13vw, 4rem); }
+      .hero p { font-size: 1rem; }
+      .hero-art { min-height: 300px; margin-top: 5px; }
+      .art-circle { width: min(300px, 82%); }
+      .float-card { left: 1%; top: 2%; }
+      .sticker { width: 85px; height: 85px; font-size: .68rem; }
+      .trust-row { grid-template-columns: 1fr; gap: 8px; padding: 15px 0; text-align: left; }
+      section { padding: 52px 0; }
+      .section-head { display: block; }
+      .section-head p { margin-top: 12px; }
+      .products { gap: 10px; }
+      .product-art { min-height: 145px; }
+      .pack { transform: scale(.9) rotate(-5deg); }
+      .product-body { padding: 13px; }
+      .product p { min-height: 62px; font-size: .82rem; }
+      .product h3 { font-size: .97rem; }
+      .price { font-size: 1rem; }
+      .story { grid-template-columns: 1fr; }
+      .story-art { min-height: 230px; order: -1; }
+      .offer { grid-template-columns: 1fr; }
+      .offer-code { justify-self: start; }
+      .delivery-grid { grid-template-columns: 1fr; }
+      .newsletter-row { display: block; }
+      .signup { margin-top: 20px; }
+      .signup .button { padding: 12px 15px; }
+      .footer-row { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">Un pequeño viaje a Japón, directo a tu despensa · Envíos en España</div>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#inicio" aria-label="GENKI, inicio"><span class="brand-mark">元気</span> GENKI</a>
+      <nav class="navlinks" aria-label="Navegación principal">
+        <a href="#productos">Productos</a>
+        <a href="#historia">Nuestra idea</a>
+        <a href="#envios">Envíos</a>
+      </nav>
+      <button class="cart" id="cartButton" aria-label="Ver carrito">Cesta (<span id="cartCount">0</span>)</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">Tu despensa, con un toque japonés</span>
+          <h1>Japón está más cerca de <span>lo que crees.</span></h1>
+          <p>Descubre sabores cotidianos de Japón: noodles, snacks, salsas y té para darle un giro delicioso a tus comidas, sin salir de casa.</p>
+          <div class="actions">
+            <a class="button primary" href="#productos">Explorar productos <span aria-hidden="true">&nbsp;→</span></a>
+            <a class="button secondary" href="#oferta">Ver oferta de bienvenida</a>
+          </div>
+          <p class="microcopy">Para curiosos, cocineros caseros y amantes de Japón. Sin complicaciones.</p>
+        </div>
+        <div class="hero-art" aria-label="Ilustración de un bol de noodles japoneses" role="img">
+          <div class="art-circle">
+            <div class="sun"></div>
+            <div class="bowl"><div class="noodle"></div><div class="noodle n2"></div><div class="topping t1"></div><div class="topping t2"></div><div class="topping t3"></div></div>
+            <div class="chop"></div>
+          </div>
+          <div class="float-card">🍜 Tu próxima comida favorita</div>
+          <div class="sticker">SABORES<br>DE JAPÓN<br>毎日の楽しみ</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="trust">
+      <div class="wrap trust-row">
+        <div><span>✓</span> Productos seleccionados</div>
+        <div><span>✓</span> Compra sencilla y segura</div>
+        <div><span>✓</span> Entrega en España peninsular*</div>
+      </div>
+    </div>
+
+    <section id="productos">
+      <div class="wrap">
+        <div class="section-head">
+          <div><span class="eyebrow">Descubre tu favorito</span><h2>Pequeños placeres,<br>grandes sabores.</h2></div>
+          <p>Una selección para empezar a explorar la despensa japonesa: básicos versátiles y caprichos para cualquier día.</p>
+        </div>
+        <div class="products">
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>JAPANESE</small><span>RAMEN<br>ラーメン</span></div></div>
+            <div class="product-body"><span class="tag">Listo en minutos</span><h3>Ramen clásico</h3><p>Un bol reconfortante para una comida rápida y sabrosa.</p><div class="product-bottom"><span class="price">2,50 €</span><button class="add" data-product="Ramen clásico" aria-label="Añadir Ramen clásico a la cesta">+</button></div></div>
+          </article>
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>UMAMI</small><span>SALSA<br>しょうゆ</span></div></div>
+            <div class="product-body"><span class="tag">Un básico</span><h3>Salsa de soja</h3><p>El toque umami para salteados, arroz, marinados y dips.</p><div class="product-bottom"><span class="price">3,90 €</span><button class="add" data-product="Salsa de soja" aria-label="Añadir Salsa de soja a la cesta">+</button></div></div>
+          </article>
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>CRUNCHY</small><span>RICE<br>CRACKERS</span></div></div>
+            <div class="product-body"><span class="tag">Para picar</span><h3>Snacks de arroz</h3><p>Crujientes, sabrosos y perfectos para compartir.</p><div class="product-bottom"><span class="price">2,95 €</span><button class="add" data-product="Snacks de arroz" aria-label="Añadir Snacks de arroz a la cesta">+</button></div></div>
+          </article>
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>DAILY TEA</small><span>MATCHA<br>抹茶</span></div></div>
+            <div class="product-body"><span class="tag">Pausa tranquila</span><h3>Té matcha</h3><p>Una bebida de sabor vegetal para cambiar tu rutina.</p><div class="product-bottom"><span class="price">8,90 €</span><button class="add" data-product="Té matcha" aria-label="Añadir Té matcha a la cesta">+</button></div></div>
+          </article>
+        </div>
+        <p class="price-note">Precios ilustrativos para el prototipo. Sustituir por precios y referencias reales antes de publicar.</p>
+      </div>
+    </section>
+
+    <div class="story-wrap" id="historia">
+      <section class="wrap story">
+        <div>
+          <span class="eyebrow">Nuestra idea</span>
+          <h2>Un poco de Japón en tu día a día.</h2>
+          <p>GENKI acerca productos japoneses a quienes quieren probar algo nuevo, cocinar con más curiosidad o reencontrarse con sabores que ya conocen.</p>
+          <p>Sin necesitar una receta complicada: elige un producto, prueba una combinación y hazlo parte de tu rutina.</p>
+          <a class="button secondary" href="#productos">Encuentra algo nuevo <span aria-hidden="true">&nbsp;→</span></a>
+        </div>
+        <div class="story-art" role="img" aria-label="Diseño gráfico inspirado en Japón"><span class="big-jp">日本</span><span class="caption">NUEVOS SABORES · CADA DÍA</span></div>
+      </section>
+    </div>
+
+    <section id="oferta">
+      <div class="wrap">
+        <div class="offer">
+          <div><span class="eyebrow">Primera compra</span><h2>Empieza con un 10 % de descuento.</h2><p>Descubre tus favoritos y disfruta de una pequeña bienvenida a GENKI.</p></div>
+          <div class="offer-code"><small>Introduce el código</small><strong>GENKI10</strong><small>en tu primera compra*</small></div>
+        </div>
+        <p class="price-note">*Oferta promocional de ejemplo. Configurar condiciones, fechas y código en la tienda antes de publicarla.</p>
+      </div>
+    </section>
+
+    <section id="envios">
+      <div class="wrap">
+        <div class="section-head"><div><span class="eyebrow">Comprar sin complicaciones</span><h2>De nuestra selección<br>a tu puerta.</h2></div><p>Información pensada para comprar desde España. Confirma cobertura, tarifas y plazos reales antes del lanzamiento.</p></div>
+        <div class="delivery-grid">
+          <article class="delivery-card"><div class="delivery-icon">📦</div><h3>Envíos nacionales</h3><p>Entrega prevista en España peninsular, con seguimiento del pedido.</p></article>
+          <article class="delivery-card"><div class="delivery-icon">🛍️</div><h3>Compra fácil</h3><p>Explora la selección, añade tus favoritos y prepara tu próxima receta.</p></article>
+          <article class="delivery-card"><div class="delivery-icon">🍵</div><h3>Para cada ocasión</h3><p>Básicos de despensa, snacks para compartir y algo nuevo que descubrir.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="newsletter">
+      <div class="wrap newsletter-row">
+        <div><h2>Un poco de Japón en tu inbox.</h2><p>Novedades, ideas fáciles y productos para descubrir.</p></div>
+        <form class="signup" id="signupForm"><label for="email" class="sr-only" style="position:absolute;left:-9999px">Tu correo electrónico</label><input type="email" id="email" placeholder="Tu correo electrónico" required=""><button class="button primary" type="submit">Me apunto</button></form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <div><a class="brand" href="#inicio"><span class="brand-mark">元気</span> GENKI</a><p>Sabores japoneses para tu día a día.</p></div>
+      <div class="footer-links"><a href="#productos">Productos</a><a href="#envios">Envíos y devoluciones</a><a href="mailto:hola@genki.example">Contacto</a></div>
+    </div>
+    <div class="wrap"><p style="margin-top:22px">© 2026 GENKI · Prototipo de landing page. Marca, catálogo, precios, logística y condiciones sujetos a validación.</p></div>
+  </footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    let cartCount = 0;
+    const cartCountEl = document.getElementById('cartCount');
+    const toast = document.getElementById('toast');
+    let toastTimer;
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
+    }
+    document.querySelectorAll('.add').forEach(button => {
+      button.addEventListener('click', () => {
+        cartCount += 1;
+        cartCountEl.textContent = cartCount;
+        showToast(button.dataset.product + ' añadido a tu cesta (demo).');
+      });
+    });
+    document.getElementById('cartButton').addEventListener('click', () => {
+      showToast(cartCount ? 'Tu cesta tiene ' + cartCount + ' producto(s). El pago aún no está conectado.' : 'Tu cesta está vacía. ¡Descubre los productos!');
+    });
+    document.getElementById('signupForm').addEventListener('submit', event => {
+      event.preventDefault();
+      showToast('¡Gracias! El formulario es una demo y aún no guarda correos.');
+      event.target.reset();
+    });
+  </script>
+
+
+</body></html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Descubre y compra productos japoneses para tu despensa: snacks, salsas, fideos, té y mucho más. Envíos en España.">
+  <title>GENKI — Japón en tu despensa</title>
+  <style>
+    :root {
+      --ink: #20251f;
+      --muted: #626b62;
+      --paper: #fbf8f1;
+      --white: #fffefa;
+      --red: #d94335;
+      --red-dark: #b93227;
+      --green: #244f3c;
+      --line: #e7e0d5;
+      --gold: #e9bd61;
+      --radius: 18px;
+      --shadow: 0 12px 32px rgba(32,37,31,.08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--paper); color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.5;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    button, .button { cursor: pointer; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    .topbar { background: var(--green); color: white; text-align: center; padding: 9px 12px; font-size: .82rem; letter-spacing: .02em; }
+    header { background: rgba(251,248,241,.95); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px); }
+    .nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 1.45rem; letter-spacing: .08em; }
+    .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; color: white; background: var(--red); font-size: .8rem; letter-spacing: 0; }
+    .navlinks { display: flex; gap: 26px; align-items: center; color: #444c43; font-size: .92rem; }
+    .navlinks a:hover { color: var(--red); }
+    .cart { border: 1px solid var(--line); border-radius: 999px; padding: 9px 14px; background: var(--white); font-weight: 700; white-space: nowrap; }
+    .hero { padding: 56px 0 64px; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1.03fr .97fr; gap: 42px; align-items: center; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--green); text-transform: uppercase; font-weight: 800; letter-spacing: .12em; font-size: .76rem; }
+    .eyebrow:before { content: ""; width: 24px; height: 2px; background: var(--red); }
+    h1 { font-size: clamp(2.65rem, 5.2vw, 4.65rem); line-height: .99; letter-spacing: -.055em; margin: 18px 0; max-width: 650px; }
+    h1 span { color: var(--red); }
+    .hero p { color: var(--muted); max-width: 510px; font-size: 1.08rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 27px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 999px; padding: 14px 21px; font-weight: 800; transition: transform .15s, background .15s; }
+    .button:hover { transform: translateY(-2px); }
+    .primary { background: var(--red); color: white; }
+    .primary:hover { background: var(--red-dark); }
+    .secondary { border: 1px solid var(--line); background: var(--white); }
+    .microcopy { margin-top: 16px; font-size: .82rem !important; }
+    .hero-art { position: relative; min-height: 400px; display: grid; place-items: center; }
+    .art-circle { width: min(390px, 90%); aspect-ratio: 1; border-radius: 50%; background: #f0dfbd; position: relative; display: grid; place-items: center; }
+    .sun { position: absolute; width: 60%; aspect-ratio: 1; background: var(--red); border-radius: 50%; top: 8%; right: -3%; opacity: .95; }
+    .bowl { position: relative; z-index: 1; width: 66%; height: 42%; border-radius: 12% 12% 48% 48%; background: #fffdf7; border: 8px solid #e6e1d5; box-shadow: 0 18px 20px rgba(40,30,20,.12); transform: rotate(-8deg); display: flex; align-items: center; justify-content: center; gap: 8px; overflow: hidden; }
+    .bowl:before { content: ""; position: absolute; width: 110%; height: 25px; background: #d9b26b; top: 16%; border-radius: 50%; }
+    .noodle { position: absolute; top: 14%; left: 16%; width: 66%; height: 48%; border: 5px solid #e8bd68; border-radius: 50%; transform: rotate(16deg); }
+    .noodle.n2 { transform: rotate(-20deg); top: 22%; left: 12%; border-color: #f2d99d; }
+    .topping { position: absolute; z-index: 2; width: 35px; height: 35px; border-radius: 50%; background: #4c8058; border: 4px solid #f6f0df; }
+    .t1 { top: 30%; left: 28%; } .t2 { top: 35%; right: 24%; background: #df7c53; }
+    .t3 { top: 55%; left: 43%; background: #e9c66e; }
+    .chop { position: absolute; width: 58%; height: 8px; border-radius: 99px; background: #9a603e; right: -2%; top: 24%; transform: rotate(35deg); z-index: 3; }
+    .sticker { position: absolute; z-index: 4; bottom: 8%; left: 2%; background: var(--green); color: white; width: 105px; height: 105px; border-radius: 50%; display: grid; place-items: center; text-align: center; font-size: .78rem; font-weight: 800; line-height: 1.25; transform: rotate(-12deg); border: 5px solid var(--paper); }
+    .float-card { position: absolute; z-index: 4; top: 7%; left: 0; background: var(--white); padding: 12px 16px; border-radius: 13px; box-shadow: var(--shadow); font-size: .84rem; font-weight: 800; }
+    .trust { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #f6f0e5; }
+    .trust-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; padding: 19px 0; text-align: center; font-size: .88rem; font-weight: 700; }
+    .trust-row span { color: var(--green); margin-right: 7px; }
+    section { padding: 74px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
+    .section-head h2, .story h2, .offer h2 { margin: 10px 0 0; font-size: clamp(2rem, 3.7vw, 3rem); line-height: 1.04; letter-spacing: -.04em; }
+    .section-head p { max-width: 390px; color: var(--muted); margin: 0; }
+    .products { display: grid; grid-template-columns: repeat(4,1fr); gap: 17px; }
+    .product { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; transition: transform .2s, box-shadow .2s; }
+    .product:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .product-art { min-height: 180px; display: grid; place-items: center; position: relative; background: #f3ead8; overflow: hidden; }
+    .product:nth-child(2) .product-art { background: #e7eee2; }
+    .product:nth-child(3) .product-art { background: #f5e3df; }
+    .product:nth-child(4) .product-art { background: #e8e5f1; }
+    .pack { width: 82px; height: 112px; border-radius: 8px 8px 13px 13px; background: #d54a39; color: white; display: grid; place-items: center; text-align: center; font-weight: 900; box-shadow: 8px 9px 0 rgba(32,37,31,.09); transform: rotate(-5deg); padding: 8px; }
+    .pack small { font-size: .56rem; letter-spacing: .12em; }
+    .product:nth-child(2) .pack { background: #344e3c; transform: rotate(4deg); }
+    .product:nth-child(3) .pack { background: #f0c96f; color: #453629; transform: rotate(-2deg); }
+    .product:nth-child(4) .pack { background: #6f6a9b; transform: rotate(5deg); }
+    .product-body { padding: 17px; }
+    .tag { color: var(--green); font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+    .product h3 { margin: 6px 0; font-size: 1.05rem; }
+    .product p { color: var(--muted); font-size: .88rem; min-height: 42px; margin: 0 0 15px; }
+    .product-bottom { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .price { font-weight: 900; font-size: 1.1rem; }
+    .add { width: 37px; height: 37px; border: 0; border-radius: 50%; color: white; background: var(--green); font-size: 1.35rem; line-height: 1; }
+    .price-note { font-size: .78rem; color: var(--muted); margin-top: 16px; }
+    .story-wrap { background: var(--green); color: white; }
+    .story { display: grid; grid-template-columns: .9fr 1.1fr; gap: 48px; align-items: center; }
+    .story .eyebrow { color: #d5e3d4; }
+    .story p { color: #d5e0d7; max-width: 570px; }
+    .story-art { min-height: 270px; background: #d6e1d2; border-radius: 22px; display: grid; place-items: center; position: relative; overflow: hidden; }
+    .story-art .big-jp { font-size: clamp(6rem, 15vw, 10rem); font-weight: 900; color: var(--red); line-height: 1; transform: rotate(-8deg); }
+    .story-art:before, .story-art:after { content: ""; position: absolute; border: 2px solid rgba(36,79,60,.28); border-radius: 50%; width: 250px; height: 250px; }
+    .story-art:after { width: 330px; height: 330px; }
+    .story-art .caption { position: absolute; bottom: 20px; right: 20px; color: var(--green); font-size: .78rem; font-weight: 800; letter-spacing: .12em; }
+    .offer { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 28px; background: #f1dfbd; border-radius: 24px; padding: clamp(26px,5vw,52px); }
+    .offer p { color: #5b5c4d; margin-bottom: 0; }
+    .offer-code { background: var(--white); border: 1px dashed #b89c68; border-radius: 14px; padding: 16px 22px; text-align: center; min-width: 165px; }
+    .offer-code strong { display: block; font-size: 1.35rem; letter-spacing: .08em; }
+    .offer-code small { color: var(--muted); }
+    .delivery-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .delivery-card { padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); }
+    .delivery-icon { font-size: 1.65rem; }
+    .delivery-card h3 { margin: 10px 0 5px; }
+    .delivery-card p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .newsletter { background: #f2e9dc; }
+    .newsletter-row { display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .newsletter h2 { margin: 0 0 8px; font-size: clamp(1.8rem,3.4vw,2.5rem); letter-spacing: -.04em; }
+    .newsletter p { margin: 0; color: var(--muted); }
+    .signup { display: flex; gap: 8px; width: min(460px,100%); }
+    .signup input { flex: 1; min-width: 0; border: 1px solid #d8cebf; background: var(--white); border-radius: 999px; padding: 13px 17px; outline-color: var(--green); }
+    footer { background: #202a23; color: #e8ede7; padding: 32px 0; }
+    .footer-row { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+    footer p { color: #b8c4b9; margin: 5px 0 0; font-size: .82rem; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; color: #d5dfd6; font-size: .86rem; }
+    .toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 150%); background: var(--ink); color: white; border-radius: 999px; padding: 12px 20px; box-shadow: var(--shadow); z-index: 20; transition: transform .25s; font-size: .9rem; }
+    .toast.show { transform: translate(-50%,0); }
+    @media (max-width: 850px) {
+      .navlinks { gap: 14px; }
+      .hero-grid { gap: 16px; }
+      .hero-art { min-height: 330px; }
+      .products { grid-template-columns: repeat(2,1fr); }
+      .story { gap: 28px; }
+    }
+    @media (max-width: 620px) {
+      .wrap { width: min(100% - 28px, 520px); }
+      .topbar { font-size: .74rem; }
+      .nav { min-height: 62px; }
+      .navlinks { display: none; }
+      .brand { font-size: 1.25rem; }
+      .cart { padding: 8px 11px; font-size: .85rem; }
+      .hero { padding: 40px 0 36px; }
+      .hero-grid { grid-template-columns: 1fr; }
+      h1 { font-size: clamp(2.75rem, 13vw, 4rem); }
+      .hero p { font-size: 1rem; }
+      .hero-art { min-height: 300px; margin-top: 5px; }
+      .art-circle { width: min(300px, 82%); }
+      .float-card { left: 1%; top: 2%; }
+      .sticker { width: 85px; height: 85px; font-size: .68rem; }
+      .trust-row { grid-template-columns: 1fr; gap: 8px; padding: 15px 0; text-align: left; }
+      section { padding: 52px 0; }
+      .section-head { display: block; }
+      .section-head p { margin-top: 12px; }
+      .products { gap: 10px; }
+      .product-art { min-height: 145px; }
+      .pack { transform: scale(.9) rotate(-5deg); }
+      .product-body { padding: 13px; }
+      .product p { min-height: 62px; font-size: .82rem; }
+      .product h3 { font-size: .97rem; }
+      .price { font-size: 1rem; }
+      .story { grid-template-columns: 1fr; }
+      .story-art { min-height: 230px; order: -1; }
+      .offer { grid-template-columns: 1fr; }
+      .offer-code { justify-self: start; }
+      .delivery-grid { grid-template-columns: 1fr; }
+      .newsletter-row { display: block; }
+      .signup { margin-top: 20px; }
+      .signup .button { padding: 12px 15px; }
+      .footer-row { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">Un pequeño viaje a Japón, directo a tu despensa · Envíos en España</div>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#inicio" aria-label="GENKI, inicio"><span class="brand-mark">元気</span> GENKI</a>
+      <nav class="navlinks" aria-label="Navegación principal">
+        <a href="#productos">Productos</a>
+        <a href="#historia">Nuestra idea</a>
+        <a href="#envios">Envíos</a>
+      </nav>
+      <button class="cart" id="cartButton" aria-label="Ver carrito">Cesta (<span id="cartCount">0</span>)</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">Tu despensa, con un toque japonés</span>
+          <h1>Japón está más cerca de <span>lo que crees.</span></h1>
+          <p>Descubre sabores cotidianos de Japón: noodles, snacks, salsas y té para darle un giro delicioso a tus comidas, sin salir de casa.</p>
+          <div class="actions">
+            <a class="button primary" href="#productos">Explorar productos <span aria-hidden="true">&nbsp;→</span></a>
+            <a class="button secondary" href="#oferta">Ver oferta de bienvenida</a>
+          </div>
+          <p class="microcopy">Para curiosos, cocineros caseros y amantes de Japón. Sin complicaciones.</p>
+        </div>
+        <div class="hero-art" aria-label="Ilustración de un bol de noodles japoneses" role="img">
+          <div class="art-circle">
+            <div class="sun"></div>
+            <div class="bowl"><div class="noodle"></div><div class="noodle n2"></div><div class="topping t1"></div><div class="topping t2"></div><div class="topping t3"></div></div>
+            <div class="chop"></div>
+          </div>
+          <div class="float-card">🍜 Tu próxima comida favorita</div>
+          <div class="sticker">SABORES<br>DE JAPÓN<br>毎日の楽しみ</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="trust">
+      <div class="wrap trust-row">
+        <div><span>✓</span> Productos seleccionados</div>
+        <div><span>✓</span> Compra sencilla y segura</div>
+        <div><span>✓</span> Entrega en España peninsular*</div>
+      </div>
+    </div>
+
+    <section id="productos">
+      <div class="wrap">
+        <div class="section-head">
+          <div><span class="eyebrow">Descubre tu favorito</span><h2>Pequeños placeres,<br>grandes sabores.</h2></div>
+          <p>Una selección para empezar a explorar la despensa japonesa: básicos versátiles y caprichos para cualquier día.</p>
+        </div>
+        <div class="products">
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>JAPANESE</small><span>RAMEN<br>ラーメン</span></div></div>
+            <div class="product-body"><span class="tag">Listo en minutos</span><h3>Ramen clásico</h3><p>Un bol reconfortante para una comida rápida y sabrosa.</p><div class="product-bottom"><span class="price">2,50 €</span><button class="add" data-product="Ramen clásico" aria-label="Añadir Ramen clásico a la cesta">+</button></div></div>
+          </article>
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>UMAMI</small><span>SALSA<br>しょうゆ</span></div></div>
+            <div class="product-body"><span class="tag">Un básico</span><h3>Salsa de soja</h3><p>El toque umami para salteados, arroz, marinados y dips.</p><div class="product-bottom"><span class="price">3,90 €</span><button class="add" data-product="Salsa de soja" aria-label="Añadir Salsa de soja a la cesta">+</button></div></div>
+          </article>
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>CRUNCHY</small><span>RICE<br>CRACKERS</span></div></div>
+            <div class="product-body"><span class="tag">Para picar</span><h3>Snacks de arroz</h3><p>Crujientes, sabrosos y perfectos para compartir.</p><div class="product-bottom"><span class="price">2,95 €</span><button class="add" data-product="Snacks de arroz" aria-label="Añadir Snacks de arroz a la cesta">+</button></div></div>
+          </article>
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>DAILY TEA</small><span>MATCHA<br>抹茶</span></div></div>
+            <div class="product-body"><span class="tag">Pausa tranquila</span><h3>Té matcha</h3><p>Una bebida de sabor vegetal para cambiar tu rutina.</p><div class="product-bottom"><span class="price">8,90 €</span><button class="add" data-product="Té matcha" aria-label="Añadir Té matcha a la cesta">+</button></div></div>
+          </article>
+        </div>
+        <p class="price-note">Precios ilustrativos para el prototipo. Sustituir por precios y referencias reales antes de publicar.</p>
+      </div>
+    </section>
+
+    <div class="story-wrap" id="historia">
+      <section class="wrap story">
+        <div>
+          <span class="eyebrow">Nuestra idea</span>
+          <h2>Un poco de Japón en tu día a día.</h2>
+          <p>GENKI acerca productos japoneses a quienes quieren probar algo nuevo, cocinar con más curiosidad o reencontrarse con sabores que ya conocen.</p>
+          <p>Sin necesitar una receta complicada: elige un producto, prueba una combinación y hazlo parte de tu rutina.</p>
+          <a class="button secondary" href="#productos">Encuentra algo nuevo <span aria-hidden="true">&nbsp;→</span></a>
+        </div>
+        <div class="story-art" role="img" aria-label="Diseño gráfico inspirado en Japón"><span class="big-jp">日本</span><span class="caption">NUEVOS SABORES · CADA DÍA</span></div>
+      </section>
+    </div>
+
+    <section id="oferta">
+      <div class="wrap">
+        <div class="offer">
+          <div><span class="eyebrow">Primera compra</span><h2>Empieza con un 10 % de descuento.</h2><p>Descubre tus favoritos y disfruta de una pequeña bienvenida a GENKI.</p></div>
+          <div class="offer-code"><small>Introduce el código</small><strong>GENKI10</strong><small>en tu primera compra*</small></div>
+        </div>
+        <p class="price-note">*Oferta promocional de ejemplo. Configurar condiciones, fechas y código en la tienda antes de publicarla.</p>
+      </div>
+    </section>
+
+    <section id="envios">
+      <div class="wrap">
+        <div class="section-head"><div><span class="eyebrow">Comprar sin complicaciones</span><h2>De nuestra selección<br>a tu puerta.</h2></div><p>Información pensada para comprar desde España. Confirma cobertura, tarifas y plazos reales antes del lanzamiento.</p></div>
+        <div class="delivery-grid">
+          <article class="delivery-card"><div class="delivery-icon">📦</div><h3>Envíos nacionales</h3><p>Entrega prevista en España peninsular, con seguimiento del pedido.</p></article>
+          <article class="delivery-card"><div class="delivery-icon">🛍️</div><h3>Compra fácil</h3><p>Explora la selección, añade tus favoritos y prepara tu próxima receta.</p></article>
+          <article class="delivery-card"><div class="delivery-icon">🍵</div><h3>Para cada ocasión</h3><p>Básicos de despensa, snacks para compartir y algo nuevo que descubrir.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="newsletter">
+      <div class="wrap newsletter-row">
+        <div><h2>Un poco de Japón en tu inbox.</h2><p>Novedades, ideas fáciles y productos para descubrir.</p></div>
+        <form class="signup" id="signupForm"><label for="email" class="sr-only" style="position:absolute;left:-9999px">Tu correo electrónico</label><input type="email" id="email" placeholder="Tu correo electrónico" required=""><button class="button primary" type="submit">Me apunto</button></form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <div><a class="brand" href="#inicio"><span class="brand-mark">元気</span> GENKI</a><p>Sabores japoneses para tu día a día.</p></div>
+      <div class="footer-links"><a href="#productos">Productos</a><a href="#envios">Envíos y devoluciones</a><a href="mailto:hola@genki.example">Contacto</a></div>
+    </div>
+    <div class="wrap"><p style="margin-top:22px">© 2026 GENKI · Prototipo de landing page. Marca, catálogo, precios, logística y condiciones sujetos a validación.</p></div>
+  </footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    let cartCount = 0;
+    const cartCountEl = document.getElementById('cartCount');
+    const toast = document.getElementById('toast');
+    let toastTimer;
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
+    }
+    document.querySelectorAll('.add').forEach(button => {
+      button.addEventListener('click', () => {
+        cartCount += 1;
+        cartCountEl.textContent = cartCount;
+        showToast(button.dataset.product + ' añadido a tu cesta (demo).');
+      });
+    });
+    document.getElementById('cartButton').addEventListener('click', () => {
+      showToast(cartCount ? 'Tu cesta tiene ' + cartCount + ' producto(s). El pago aún no está conectado.' : 'Tu cesta está vacía. ¡Descubre los productos!');
+    });
+    document.getElementById('signupForm').addEventListener('submit', event => {
+      event.preventDefault();
+      showToast('¡Gracias! El formulario es una demo y aún no guarda correos.');
+      event.target.reset();
+    });
+  </script>
+
+
+</body>
+<div class="topbar">Un pequeño viaje a Japón, directo a tu despensa · Envíos en España</div>
+<header>
+    <div class="wrap nav">
+      <a class="brand" href="#inicio" aria-label="GENKI, inicio"><span class="brand-mark">元気</span> GENKI</a>
+      <nav class="navlinks" aria-label="Navegación principal">
+        <a href="#productos">Productos</a>
+        <a href="#historia">Nuestra idea</a>
+        <a href="#envios">Envíos</a>
+      </nav>
+      <button class="cart" id="cartButton" aria-label="Ver carrito">Cesta (<span id="cartCount">0</span>)</button>
+    </div>
+  </header>
+<main>
+    <section class="hero" id="inicio">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">Tu despensa, con un toque japonés</span>
+          <h1>Japón está más cerca de <span>lo que crees.</span></h1>
+          <p>Descubre sabores cotidianos de Japón: noodles, snacks, salsas y té para darle un giro delicioso a tus comidas, sin salir de casa.</p>
+          <div class="actions">
+            <a class="button primary" href="#productos">Explorar productos <span aria-hidden="true">&nbsp;→</span></a>
+            <a class="button secondary" href="#oferta">Ver oferta de bienvenida</a>
+          </div>
+          <p class="microcopy">Para curiosos, cocineros caseros y amantes de Japón. Sin complicaciones.</p>
+        </div>
+        <div class="hero-art" aria-label="Ilustración de un bol de noodles japoneses" role="img">
+          <div class="art-circle">
+            <div class="sun"></div>
+            <div class="bowl"><div class="noodle"></div><div class="noodle n2"></div><div class="topping t1"></div><div class="topping t2"></div><div class="topping t3"></div></div>
+            <div class="chop"></div>
+          </div>
+          <div class="float-card">🍜 Tu próxima comida favorita</div>
+          <div class="sticker">SABORES<br>DE JAPÓN<br>毎日の楽しみ</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="trust">
+      <div class="wrap trust-row">
+        <div><span>✓</span> Productos seleccionados</div>
+        <div><span>✓</span> Compra sencilla y segura</div>
+        <div><span>✓</span> Entrega en España peninsular*</div>
+      </div>
+    </div>
+
+    <section id="productos">
+      <div class="wrap">
+        <div class="section-head">
+          <div><span class="eyebrow">Descubre tu favorito</span><h2>Pequeños placeres,<br>grandes sabores.</h2></div>
+          <p>Una selección para empezar a explorar la despensa japonesa: básicos versátiles y caprichos para cualquier día.</p>
+        </div>
+        <div class="products">
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>JAPANESE</small><span>RAMEN<br>ラーメン</span></div></div>
+            <div class="product-body"><span class="tag">Listo en minutos</span><h3>Ramen clásico</h3><p>Un bol reconfortante para una comida rápida y sabrosa.</p><div class="product-bottom"><span class="price">2,50 €</span><button class="add" data-product="Ramen clásico" aria-label="Añadir Ramen clásico a la cesta">+</button></div></div>
+          </article>
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>UMAMI</small><span>SALSA<br>しょうゆ</span></div></div>
+            <div class="product-body"><span class="tag">Un básico</span><h3>Salsa de soja</h3><p>El toque umami para salteados, arroz, marinados y dips.</p><div class="product-bottom"><span class="price">3,90 €</span><button class="add" data-product="Salsa de soja" aria-label="Añadir Salsa de soja a la cesta">+</button></div></div>
+          </article>
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>CRUNCHY</small><span>RICE<br>CRACKERS</span></div></div>
+            <div class="product-body"><span class="tag">Para picar</span><h3>Snacks de arroz</h3><p>Crujientes, sabrosos y perfectos para compartir.</p><div class="product-bottom"><span class="price">2,95 €</span><button class="add" data-product="Snacks de arroz" aria-label="Añadir Snacks de arroz a la cesta">+</button></div></div>
+          </article>
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>DAILY TEA</small><span>MATCHA<br>抹茶</span></div></div>
+            <div class="product-body"><span class="tag">Pausa tranquila</span><h3>Té matcha</h3><p>Una bebida de sabor vegetal para cambiar tu rutina.</p><div class="product-bottom"><span class="price">8,90 €</span><button class="add" data-product="Té matcha" aria-label="Añadir Té matcha a la cesta">+</button></div></div>
+          </article>
+        </div>
+        <p class="price-note">Precios ilustrativos para el prototipo. Sustituir por precios y referencias reales antes de publicar.</p>
+      </div>
+    </section>
+
+    <div class="story-wrap" id="historia">
+      <section class="wrap story">
+        <div>
+          <span class="eyebrow">Nuestra idea</span>
+          <h2>Un poco de Japón en tu día a día.</h2>
+          <p>GENKI acerca productos japoneses a quienes quieren probar algo nuevo, cocinar con más curiosidad o reencontrarse con sabores que ya conocen.</p>
+          <p>Sin necesitar una receta complicada: elige un producto, prueba una combinación y hazlo parte de tu rutina.</p>
+          <a class="button secondary" href="#productos">Encuentra algo nuevo <span aria-hidden="true">&nbsp;→</span></a>
+        </div>
+        <div class="story-art" role="img" aria-label="Diseño gráfico inspirado en Japón"><span class="big-jp">日本</span><span class="caption">NUEVOS SABORES · CADA DÍA</span></div>
+      </section>
+    </div>
+
+    <section id="oferta">
+      <div class="wrap">
+        <div class="offer">
+          <div><span class="eyebrow">Primera compra</span><h2>Empieza con un 10 % de descuento.</h2><p>Descubre tus favoritos y disfruta de una pequeña bienvenida a GENKI.</p></div>
+          <div class="offer-code"><small>Introduce el código</small><strong>GENKI10</strong><small>en tu primera compra*</small></div>
+        </div>
+        <p class="price-note">*Oferta promocional de ejemplo. Configurar condiciones, fechas y código en la tienda antes de publicarla.</p>
+      </div>
+    </section>
+
+    <section id="envios">
+      <div class="wrap">
+        <div class="section-head"><div><span class="eyebrow">Comprar sin complicaciones</span><h2>De nuestra selección<br>a tu puerta.</h2></div><p>Información pensada para comprar desde España. Confirma cobertura, tarifas y plazos reales antes del lanzamiento.</p></div>
+        <div class="delivery-grid">
+          <article class="delivery-card"><div class="delivery-icon">📦</div><h3>Envíos nacionales</h3><p>Entrega prevista en España peninsular, con seguimiento del pedido.</p></article>
+          <article class="delivery-card"><div class="delivery-icon">🛍️</div><h3>Compra fácil</h3><p>Explora la selección, añade tus favoritos y prepara tu próxima receta.</p></article>
+          <article class="delivery-card"><div class="delivery-icon">🍵</div><h3>Para cada ocasión</h3><p>Básicos de despensa, snacks para compartir y algo nuevo que descubrir.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="newsletter">
+      <div class="wrap newsletter-row">
+        <div><h2>Un poco de Japón en tu inbox.</h2><p>Novedades, ideas fáciles y productos para descubrir.</p></div>
+        <form class="signup" id="signupForm"><label for="email" class="sr-only" style="position:absolute;left:-9999px">Tu correo electrónico</label><input type="email" id="email" placeholder="Tu correo electrónico" required=""><button class="button primary" type="submit">Me apunto</button></form>
+      </div>
+    </section>
+  </main>
+<section class="hero" id="inicio">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">Tu despensa, con un toque japonés</span>
+          <h1>Japón está más cerca de <span>lo que crees.</span></h1>
+          <p>Descubre sabores cotidianos de Japón: noodles, snacks, salsas y té para darle un giro delicioso a tus comidas, sin salir de casa.</p>
+          <div class="actions">
+            <a class="button primary" href="#productos">Explorar productos <span aria-hidden="true">&nbsp;→</span></a>
+            <a class="button secondary" href="#oferta">Ver oferta de bienvenida</a>
+          </div>
+          <p class="microcopy">Para curiosos, cocineros caseros y amantes de Japón. Sin complicaciones.</p>
+        </div>
+        <div class="hero-art" aria-label="Ilustración de un bol de noodles japoneses" role="img">
+          <div class="art-circle">
+            <div class="sun"></div>
+            <div class="bowl"><div class="noodle"></div><div class="noodle n2"></div><div class="topping t1"></div><div class="topping t2"></div><div class="topping t3"></div></div>
+            <div class="chop"></div>
+          </div>
+          <div class="float-card">🍜 Tu próxima comida favorita</div>
+          <div class="sticker">SABORES<br>DE JAPÓN<br>毎日の楽しみ</div>
+        </div>
+      </div>
+    </section>
+<div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">Tu despensa, con un toque japonés</span>
+          <h1>Japón está más cerca de <span>lo que crees.</span></h1>
+          <p>Descubre sabores cotidianos de Japón: noodles, snacks, salsas y té para darle un giro delicioso a tus comidas, sin salir de casa.</p>
+          <div class="actions">
+            <a class="button primary" href="#productos">Explorar productos <span aria-hidden="true">&nbsp;→</span></a>
+            <a class="button secondary" href="#oferta">Ver oferta de bienvenida</a>
+          </div>
+          <p class="microcopy">Para curiosos, cocineros caseros y amantes de Japón. Sin complicaciones.</p>
+        </div>
+        <div class="hero-art" aria-label="Ilustración de un bol de noodles japoneses" role="img">
+          <div class="art-circle">
+            <div class="sun"></div>
+            <div class="bowl"><div class="noodle"></div><div class="noodle n2"></div><div class="topping t1"></div><div class="topping t2"></div><div class="topping t3"></div></div>
+            <div class="chop"></div>
+          </div>
+          <div class="float-card">🍜 Tu próxima comida favorita</div>
+          <div class="sticker">SABORES<br>DE JAPÓN<br>毎日の楽しみ</div>
+        </div>
+      </div>
+<div>
+          <span class="eyebrow">Tu despensa, con un toque japonés</span>
+          <h1>Japón está más cerca de <span>lo que crees.</span></h1>
+          <p>Descubre sabores cotidianos de Japón: noodles, snacks, salsas y té para darle un giro delicioso a tus comidas, sin salir de casa.</p>
+          <div class="actions">
+            <a class="button primary" href="#productos">Explorar productos <span aria-hidden="true">&nbsp;→</span></a>
+            <a class="button secondary" href="#oferta">Ver oferta de bienvenida</a>
+          </div>
+          <p class="microcopy">Para curiosos, cocineros caseros y amantes de Japón. Sin complicaciones.</p>
+        </div>
+<div class="hero-art" aria-label="Ilustración de un bol de noodles japoneses" role="img">
+          <div class="art-circle">
+            <div class="sun"></div>
+            <div class="bowl"><div class="noodle"></div><div class="noodle n2"></div><div class="topping t1"></div><div class="topping t2"></div><div class="topping t3"></div></div>
+            <div class="chop"></div>
+          </div>
+          <div class="float-card">🍜 Tu próxima comida favorita</div>
+          <div class="sticker">SABORES<br>DE JAPÓN<br>毎日の楽しみ</div>
+        </div>
+<div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">Tu despensa, con un toque japonés</span>
+          <h1>Japón está más cerca de <span>lo que crees.</span></h1>
+          <p>Descubre sabores cotidianos de Japón: noodles, snacks, salsas y té para darle un giro delicioso a tus comidas, sin salir de casa.</p>
+          <div class="actions">
+            <a class="button primary" href="#productos">Explorar productos <span aria-hidden="true">&nbsp;→</span></a>
+            <a class="button secondary" href="#oferta">Ver oferta de bienvenida</a>
+          </div>
+          <p class="microcopy">Para curiosos, cocineros caseros y amantes de Japón. Sin complicaciones.</p>
+        </div>
+        <div class="hero-art" aria-label="Ilustración de un bol de noodles japoneses" role="img">
+          <div class="art-circle">
+            <div class="sun"></div>
+            <div class="bowl"><div class="noodle"></div><div class="noodle n2"></div><div class="topping t1"></div><div class="topping t2"></div><div class="topping t3"></div></div>
+            <div class="chop"></div>
+          </div>
+          <div class="float-card">🍜 Tu próxima comida favorita</div>
+          <div class="sticker">SABORES<br>DE JAPÓN<br>毎日の楽しみ</div>
+        </div>
+      </div>
+<section class="hero" id="inicio">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">Tu despensa, con un toque japonés</span>
+          <h1>Japón está más cerca de <span>lo que crees.</span></h1>
+          <p>Descubre sabores cotidianos de Japón: noodles, snacks, salsas y té para darle un giro delicioso a tus comidas, sin salir de casa.</p>
+          <div class="actions">
+            <a class="button primary" href="#productos">Explorar productos <span aria-hidden="true">&nbsp;→</span></a>
+            <a class="button secondary" href="#oferta">Ver oferta de bienvenida</a>
+          </div>
+          <p class="microcopy">Para curiosos, cocineros caseros y amantes de Japón. Sin complicaciones.</p>
+        </div>
+        <div class="hero-art" aria-label="Ilustración de un bol de noodles japoneses" role="img">
+          <div class="art-circle">
+            <div class="sun"></div>
+            <div class="bowl"><div class="noodle"></div><div class="noodle n2"></div><div class="topping t1"></div><div class="topping t2"></div><div class="topping t3"></div></div>
+            <div class="chop"></div>
+          </div>
+          <div class="float-card">🍜 Tu próxima comida favorita</div>
+          <div class="sticker">SABORES<br>DE JAPÓN<br>毎日の楽しみ</div>
+        </div>
+      </div>
+    </section>
+<div class="trust">
+      <div class="wrap trust-row">
+        <div><span>✓</span> Productos seleccionados</div>
+        <div><span>✓</span> Compra sencilla y segura</div>
+        <div><span>✓</span> Entrega en España peninsular*</div>
+      </div>
+    </div>
+<section id="productos">
+      <div class="wrap">
+        <div class="section-head">
+          <div><span class="eyebrow">Descubre tu favorito</span><h2>Pequeños placeres,<br>grandes sabores.</h2></div>
+          <p>Una selección para empezar a explorar la despensa japonesa: básicos versátiles y caprichos para cualquier día.</p>
+        </div>
+        <div class="products">
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>JAPANESE</small><span>RAMEN<br>ラーメン</span></div></div>
+            <div class="product-body"><span class="tag">Listo en minutos</span><h3>Ramen clásico</h3><p>Un bol reconfortante para una comida rápida y sabrosa.</p><div class="product-bottom"><span class="price">2,50 €</span><button class="add" data-product="Ramen clásico" aria-label="Añadir Ramen clásico a la cesta">+</button></div></div>
+          </article>
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>UMAMI</small><span>SALSA<br>しょうゆ</span></div></div>
+            <div class="product-body"><span class="tag">Un básico</span><h3>Salsa de soja</h3><p>El toque umami para salteados, arroz, marinados y dips.</p><div class="product-bottom"><span class="price">3,90 €</span><button class="add" data-product="Salsa de soja" aria-label="Añadir Salsa de soja a la cesta">+</button></div></div>
+          </article>
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>CRUNCHY</small><span>RICE<br>CRACKERS</span></div></div>
+            <div class="product-body"><span class="tag">Para picar</span><h3>Snacks de arroz</h3><p>Crujientes, sabrosos y perfectos para compartir.</p><div class="product-bottom"><span class="price">2,95 €</span><button class="add" data-product="Snacks de arroz" aria-label="Añadir Snacks de arroz a la cesta">+</button></div></div>
+          </article>
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>DAILY TEA</small><span>MATCHA<br>抹茶</span></div></div>
+            <div class="product-body"><span class="tag">Pausa tranquila</span><h3>Té matcha</h3><p>Una bebida de sabor vegetal para cambiar tu rutina.</p><div class="product-bottom"><span class="price">8,90 €</span><button class="add" data-product="Té matcha" aria-label="Añadir Té matcha a la cesta">+</button></div></div>
+          </article>
+        </div>
+        <p class="price-note">Precios ilustrativos para el prototipo. Sustituir por precios y referencias reales antes de publicar.</p>
+      </div>
+    </section>
+<div class="story-wrap" id="historia">
+      <section class="wrap story">
+        <div>
+          <span class="eyebrow">Nuestra idea</span>
+          <h2>Un poco de Japón en tu día a día.</h2>
+          <p>GENKI acerca productos japoneses a quienes quieren probar algo nuevo, cocinar con más curiosidad o reencontrarse con sabores que ya conocen.</p>
+          <p>Sin necesitar una receta complicada: elige un producto, prueba una combinación y hazlo parte de tu rutina.</p>
+          <a class="button secondary" href="#productos">Encuentra algo nuevo <span aria-hidden="true">&nbsp;→</span></a>
+        </div>
+        <div class="story-art" role="img" aria-label="Diseño gráfico inspirado en Japón"><span class="big-jp">日本</span><span class="caption">NUEVOS SABORES · CADA DÍA</span></div>
+      </section>
+    </div>
+<section id="oferta">
+      <div class="wrap">
+        <div class="offer">
+          <div><span class="eyebrow">Primera compra</span><h2>Empieza con un 10 % de descuento.</h2><p>Descubre tus favoritos y disfruta de una pequeña bienvenida a GENKI.</p></div>
+          <div class="offer-code"><small>Introduce el código</small><strong>GENKI10</strong><small>en tu primera compra*</small></div>
+        </div>
+        <p class="price-note">*Oferta promocional de ejemplo. Configurar condiciones, fechas y código en la tienda antes de publicarla.</p>
+      </div>
+    </section>
+<section id="envios">
+      <div class="wrap">
+        <div class="section-head"><div><span class="eyebrow">Comprar sin complicaciones</span><h2>De nuestra selección<br>a tu puerta.</h2></div><p>Información pensada para comprar desde España. Confirma cobertura, tarifas y plazos reales antes del lanzamiento.</p></div>
+        <div class="delivery-grid">
+          <article class="delivery-card"><div class="delivery-icon">📦</div><h3>Envíos nacionales</h3><p>Entrega prevista en España peninsular, con seguimiento del pedido.</p></article>
+          <article class="delivery-card"><div class="delivery-icon">🛍️</div><h3>Compra fácil</h3><p>Explora la selección, añade tus favoritos y prepara tu próxima receta.</p></article>
+          <article class="delivery-card"><div class="delivery-icon">🍵</div><h3>Para cada ocasión</h3><p>Básicos de despensa, snacks para compartir y algo nuevo que descubrir.</p></article>
+        </div>
+      </div>
+    </section>
+<section class="newsletter">
+      <div class="wrap newsletter-row">
+        <div><h2>Un poco de Japón en tu inbox.</h2><p>Novedades, ideas fáciles y productos para descubrir.</p></div>
+        <form class="signup" id="signupForm"><label for="email" class="sr-only" style="position:absolute;left:-9999px">Tu correo electrónico</label><input type="email" id="email" placeholder="Tu correo electrónico" required=""><button class="button primary" type="submit">Me apunto</button></form>
+      </div>
+    </section>
+<main>
+    <section class="hero" id="inicio">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">Tu despensa, con un toque japonés</span>
+          <h1>Japón está más cerca de <span>lo que crees.</span></h1>
+          <p>Descubre sabores cotidianos de Japón: noodles, snacks, salsas y té para darle un giro delicioso a tus comidas, sin salir de casa.</p>
+          <div class="actions">
+            <a class="button primary" href="#productos">Explorar productos <span aria-hidden="true">&nbsp;→</span></a>
+            <a class="button secondary" href="#oferta">Ver oferta de bienvenida</a>
+          </div>
+          <p class="microcopy">Para curiosos, cocineros caseros y amantes de Japón. Sin complicaciones.</p>
+        </div>
+        <div class="hero-art" aria-label="Ilustración de un bol de noodles japoneses" role="img">
+          <div class="art-circle">
+            <div class="sun"></div>
+            <div class="bowl"><div class="noodle"></div><div class="noodle n2"></div><div class="topping t1"></div><div class="topping t2"></div><div class="topping t3"></div></div>
+            <div class="chop"></div>
+          </div>
+          <div class="float-card">🍜 Tu próxima comida favorita</div>
+          <div class="sticker">SABORES<br>DE JAPÓN<br>毎日の楽しみ</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="trust">
+      <div class="wrap trust-row">
+        <div><span>✓</span> Productos seleccionados</div>
+        <div><span>✓</span> Compra sencilla y segura</div>
+        <div><span>✓</span> Entrega en España peninsular*</div>
+      </div>
+    </div>
+
+    <section id="productos">
+      <div class="wrap">
+        <div class="section-head">
+          <div><span class="eyebrow">Descubre tu favorito</span><h2>Pequeños placeres,<br>grandes sabores.</h2></div>
+          <p>Una selección para empezar a explorar la despensa japonesa: básicos versátiles y caprichos para cualquier día.</p>
+        </div>
+        <div class="products">
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>JAPANESE</small><span>RAMEN<br>ラーメン</span></div></div>
+            <div class="product-body"><span class="tag">Listo en minutos</span><h3>Ramen clásico</h3><p>Un bol reconfortante para una comida rápida y sabrosa.</p><div class="product-bottom"><span class="price">2,50 €</span><button class="add" data-product="Ramen clásico" aria-label="Añadir Ramen clásico a la cesta">+</button></div></div>
+          </article>
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>UMAMI</small><span>SALSA<br>しょうゆ</span></div></div>
+            <div class="product-body"><span class="tag">Un básico</span><h3>Salsa de soja</h3><p>El toque umami para salteados, arroz, marinados y dips.</p><div class="product-bottom"><span class="price">3,90 €</span><button class="add" data-product="Salsa de soja" aria-label="Añadir Salsa de soja a la cesta">+</button></div></div>
+          </article>
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>CRUNCHY</small><span>RICE<br>CRACKERS</span></div></div>
+            <div class="product-body"><span class="tag">Para picar</span><h3>Snacks de arroz</h3><p>Crujientes, sabrosos y perfectos para compartir.</p><div class="product-bottom"><span class="price">2,95 €</span><button class="add" data-product="Snacks de arroz" aria-label="Añadir Snacks de arroz a la cesta">+</button></div></div>
+          </article>
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>DAILY TEA</small><span>MATCHA<br>抹茶</span></div></div>
+            <div class="product-body"><span class="tag">Pausa tranquila</span><h3>Té matcha</h3><p>Una bebida de sabor vegetal para cambiar tu rutina.</p><div class="product-bottom"><span class="price">8,90 €</span><button class="add" data-product="Té matcha" aria-label="Añadir Té matcha a la cesta">+</button></div></div>
+          </article>
+        </div>
+        <p class="price-note">Precios ilustrativos para el prototipo. Sustituir por precios y referencias reales antes de publicar.</p>
+      </div>
+    </section>
+
+    <div class="story-wrap" id="historia">
+      <section class="wrap story">
+        <div>
+          <span class="eyebrow">Nuestra idea</span>
+          <h2>Un poco de Japón en tu día a día.</h2>
+          <p>GENKI acerca productos japoneses a quienes quieren probar algo nuevo, cocinar con más curiosidad o reencontrarse con sabores que ya conocen.</p>
+          <p>Sin necesitar una receta complicada: elige un producto, prueba una combinación y hazlo parte de tu rutina.</p>
+          <a class="button secondary" href="#productos">Encuentra algo nuevo <span aria-hidden="true">&nbsp;→</span></a>
+        </div>
+        <div class="story-art" role="img" aria-label="Diseño gráfico inspirado en Japón"><span class="big-jp">日本</span><span class="caption">NUEVOS SABORES · CADA DÍA</span></div>
+      </section>
+    </div>
+
+    <section id="oferta">
+      <div class="wrap">
+        <div class="offer">
+          <div><span class="eyebrow">Primera compra</span><h2>Empieza con un 10 % de descuento.</h2><p>Descubre tus favoritos y disfruta de una pequeña bienvenida a GENKI.</p></div>
+          <div class="offer-code"><small>Introduce el código</small><strong>GENKI10</strong><small>en tu primera compra*</small></div>
+        </div>
+        <p class="price-note">*Oferta promocional de ejemplo. Configurar condiciones, fechas y código en la tienda antes de publicarla.</p>
+      </div>
+    </section>
+
+    <section id="envios">
+      <div class="wrap">
+        <div class="section-head"><div><span class="eyebrow">Comprar sin complicaciones</span><h2>De nuestra selección<br>a tu puerta.</h2></div><p>Información pensada para comprar desde España. Confirma cobertura, tarifas y plazos reales antes del lanzamiento.</p></div>
+        <div class="delivery-grid">
+          <article class="delivery-card"><div class="delivery-icon">📦</div><h3>Envíos nacionales</h3><p>Entrega prevista en España peninsular, con seguimiento del pedido.</p></article>
+          <article class="delivery-card"><div class="delivery-icon">🛍️</div><h3>Compra fácil</h3><p>Explora la selección, añade tus favoritos y prepara tu próxima receta.</p></article>
+          <article class="delivery-card"><div class="delivery-icon">🍵</div><h3>Para cada ocasión</h3><p>Básicos de despensa, snacks para compartir y algo nuevo que descubrir.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="newsletter">
+      <div class="wrap newsletter-row">
+        <div><h2>Un poco de Japón en tu inbox.</h2><p>Novedades, ideas fáciles y productos para descubrir.</p></div>
+        <form class="signup" id="signupForm"><label for="email" class="sr-only" style="position:absolute;left:-9999px">Tu correo electrónico</label><input type="email" id="email" placeholder="Tu correo electrónico" required=""><button class="button primary" type="submit">Me apunto</button></form>
+      </div>
+    </section>
+  </main>
+<footer>
+    <div class="wrap footer-row">
+      <div><a class="brand" href="#inicio"><span class="brand-mark">元気</span> GENKI</a><p>Sabores japoneses para tu día a día.</p></div>
+      <div class="footer-links"><a href="#productos">Productos</a><a href="#envios">Envíos y devoluciones</a><a href="mailto:hola@genki.example">Contacto</a></div>
+    </div>
+    <div class="wrap"><p style="margin-top:22px">© 2026 GENKI · Prototipo de landing page. Marca, catálogo, precios, logística y condiciones sujetos a validación.</p></div>
+  </footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+    let cartCount = 0;
+    const cartCountEl = document.getElementById('cartCount');
+    const toast = document.getElementById('toast');
+    let toastTimer;
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
+    }
+    document.querySelectorAll('.add').forEach(button => {
+      button.addEventListener('click', () => {
+        cartCount += 1;
+        cartCountEl.textContent = cartCount;
+        showToast(button.dataset.product + ' añadido a tu cesta (demo).');
+      });
+    });
+    document.getElementById('cartButton').addEventListener('click', () => {
+      showToast(cartCount ? 'Tu cesta tiene ' + cartCount + ' producto(s). El pago aún no está conectado.' : 'Tu cesta está vacía. ¡Descubre los productos!');
+    });
+    document.getElementById('signupForm').addEventListener('submit', event => {
+      event.preventDefault();
+      showToast('¡Gracias! El formulario es una demo y aún no guarda correos.');
+      event.target.reset();
+    });
+  </script>
+<body>
+  <div class="topbar">Un pequeño viaje a Japón, directo a tu despensa · Envíos en España</div>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#inicio" aria-label="GENKI, inicio"><span class="brand-mark">元気</span> GENKI</a>
+      <nav class="navlinks" aria-label="Navegación principal">
+        <a href="#productos">Productos</a>
+        <a href="#historia">Nuestra idea</a>
+        <a href="#envios">Envíos</a>
+      </nav>
+      <button class="cart" id="cartButton" aria-label="Ver carrito">Cesta (<span id="cartCount">0</span>)</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">Tu despensa, con un toque japonés</span>
+          <h1>Japón está más cerca de <span>lo que crees.</span></h1>
+          <p>Descubre sabores cotidianos de Japón: noodles, snacks, salsas y té para darle un giro delicioso a tus comidas, sin salir de casa.</p>
+          <div class="actions">
+            <a class="button primary" href="#productos">Explorar productos <span aria-hidden="true">&nbsp;→</span></a>
+            <a class="button secondary" href="#oferta">Ver oferta de bienvenida</a>
+          </div>
+          <p class="microcopy">Para curiosos, cocineros caseros y amantes de Japón. Sin complicaciones.</p>
+        </div>
+        <div class="hero-art" aria-label="Ilustración de un bol de noodles japoneses" role="img">
+          <div class="art-circle">
+            <div class="sun"></div>
+            <div class="bowl"><div class="noodle"></div><div class="noodle n2"></div><div class="topping t1"></div><div class="topping t2"></div><div class="topping t3"></div></div>
+            <div class="chop"></div>
+          </div>
+          <div class="float-card">🍜 Tu próxima comida favorita</div>
+          <div class="sticker">SABORES<br>DE JAPÓN<br>毎日の楽しみ</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="trust">
+      <div class="wrap trust-row">
+        <div><span>✓</span> Productos seleccionados</div>
+        <div><span>✓</span> Compra sencilla y segura</div>
+        <div><span>✓</span> Entrega en España peninsular*</div>
+      </div>
+    </div>
+
+    <section id="productos">
+      <div class="wrap">
+        <div class="section-head">
+          <div><span class="eyebrow">Descubre tu favorito</span><h2>Pequeños placeres,<br>grandes sabores.</h2></div>
+          <p>Una selección para empezar a explorar la despensa japonesa: básicos versátiles y caprichos para cualquier día.</p>
+        </div>
+        <div class="products">
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>JAPANESE</small><span>RAMEN<br>ラーメン</span></div></div>
+            <div class="product-body"><span class="tag">Listo en minutos</span><h3>Ramen clásico</h3><p>Un bol reconfortante para una comida rápida y sabrosa.</p><div class="product-bottom"><span class="price">2,50 €</span><button class="add" data-product="Ramen clásico" aria-label="Añadir Ramen clásico a la cesta">+</button></div></div>
+          </article>
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>UMAMI</small><span>SALSA<br>しょうゆ</span></div></div>
+            <div class="product-body"><span class="tag">Un básico</span><h3>Salsa de soja</h3><p>El toque umami para salteados, arroz, marinados y dips.</p><div class="product-bottom"><span class="price">3,90 €</span><button class="add" data-product="Salsa de soja" aria-label="Añadir Salsa de soja a la cesta">+</button></div></div>
+          </article>
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>CRUNCHY</small><span>RICE<br>CRACKERS</span></div></div>
+            <div class="product-body"><span class="tag">Para picar</span><h3>Snacks de arroz</h3><p>Crujientes, sabrosos y perfectos para compartir.</p><div class="product-bottom"><span class="price">2,95 €</span><button class="add" data-product="Snacks de arroz" aria-label="Añadir Snacks de arroz a la cesta">+</button></div></div>
+          </article>
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>DAILY TEA</small><span>MATCHA<br>抹茶</span></div></div>
+            <div class="product-body"><span class="tag">Pausa tranquila</span><h3>Té matcha</h3><p>Una bebida de sabor vegetal para cambiar tu rutina.</p><div class="product-bottom"><span class="price">8,90 €</span><button class="add" data-product="Té matcha" aria-label="Añadir Té matcha a la cesta">+</button></div></div>
+          </article>
+        </div>
+        <p class="price-note">Precios ilustrativos para el prototipo. Sustituir por precios y referencias reales antes de publicar.</p>
+      </div>
+    </section>
+
+    <div class="story-wrap" id="historia">
+      <section class="wrap story">
+        <div>
+          <span class="eyebrow">Nuestra idea</span>
+          <h2>Un poco de Japón en tu día a día.</h2>
+          <p>GENKI acerca productos japoneses a quienes quieren probar algo nuevo, cocinar con más curiosidad o reencontrarse con sabores que ya conocen.</p>
+          <p>Sin necesitar una receta complicada: elige un producto, prueba una combinación y hazlo parte de tu rutina.</p>
+          <a class="button secondary" href="#productos">Encuentra algo nuevo <span aria-hidden="true">&nbsp;→</span></a>
+        </div>
+        <div class="story-art" role="img" aria-label="Diseño gráfico inspirado en Japón"><span class="big-jp">日本</span><span class="caption">NUEVOS SABORES · CADA DÍA</span></div>
+      </section>
+    </div>
+
+    <section id="oferta">
+      <div class="wrap">
+        <div class="offer">
+          <div><span class="eyebrow">Primera compra</span><h2>Empieza con un 10 % de descuento.</h2><p>Descubre tus favoritos y disfruta de una pequeña bienvenida a GENKI.</p></div>
+          <div class="offer-code"><small>Introduce el código</small><strong>GENKI10</strong><small>en tu primera compra*</small></div>
+        </div>
+        <p class="price-note">*Oferta promocional de ejemplo. Configurar condiciones, fechas y código en la tienda antes de publicarla.</p>
+      </div>
+    </section>
+
+    <section id="envios">
+      <div class="wrap">
+        <div class="section-head"><div><span class="eyebrow">Comprar sin complicaciones</span><h2>De nuestra selección<br>a tu puerta.</h2></div><p>Información pensada para comprar desde España. Confirma cobertura, tarifas y plazos reales antes del lanzamiento.</p></div>
+        <div class="delivery-grid">
+          <article class="delivery-card"><div class="delivery-icon">📦</div><h3>Envíos nacionales</h3><p>Entrega prevista en España peninsular, con seguimiento del pedido.</p></article>
+          <article class="delivery-card"><div class="delivery-icon">🛍️</div><h3>Compra fácil</h3><p>Explora la selección, añade tus favoritos y prepara tu próxima receta.</p></article>
+          <article class="delivery-card"><div class="delivery-icon">🍵</div><h3>Para cada ocasión</h3><p>Básicos de despensa, snacks para compartir y algo nuevo que descubrir.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="newsletter">
+      <div class="wrap newsletter-row">
+        <div><h2>Un poco de Japón en tu inbox.</h2><p>Novedades, ideas fáciles y productos para descubrir.</p></div>
+        <form class="signup" id="signupForm"><label for="email" class="sr-only" style="position:absolute;left:-9999px">Tu correo electrónico</label><input type="email" id="email" placeholder="Tu correo electrónico" required=""><button class="button primary" type="submit">Me apunto</button></form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <div><a class="brand" href="#inicio"><span class="brand-mark">元気</span> GENKI</a><p>Sabores japoneses para tu día a día.</p></div>
+      <div class="footer-links"><a href="#productos">Productos</a><a href="#envios">Envíos y devoluciones</a><a href="mailto:hola@genki.example">Contacto</a></div>
+    </div>
+    <div class="wrap"><p style="margin-top:22px">© 2026 GENKI · Prototipo de landing page. Marca, catálogo, precios, logística y condiciones sujetos a validación.</p></div>
+  </footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    let cartCount = 0;
+    const cartCountEl = document.getElementById('cartCount');
+    const toast = document.getElementById('toast');
+    let toastTimer;
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
+    }
+    document.querySelectorAll('.add').forEach(button => {
+      button.addEventListener('click', () => {
+        cartCount += 1;
+        cartCountEl.textContent = cartCount;
+        showToast(button.dataset.product + ' añadido a tu cesta (demo).');
+      });
+    });
+    document.getElementById('cartButton').addEventListener('click', () => {
+      showToast(cartCount ? 'Tu cesta tiene ' + cartCount + ' producto(s). El pago aún no está conectado.' : 'Tu cesta está vacía. ¡Descubre los productos!');
+    });
+    document.getElementById('signupForm').addEventListener('submit', event => {
+      event.preventDefault();
+      showToast('¡Gracias! El formulario es una demo y aún no guarda correos.');
+      event.target.reset();
+    });
+  </script>
+
+
+</body>
+<html lang="es"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Descubre y compra productos japoneses para tu despensa: snacks, salsas, fideos, té y mucho más. Envíos en España.">
+  <title>GENKI — Japón en tu despensa</title>
+  <style>
+    :root {
+      --ink: #20251f;
+      --muted: #626b62;
+      --paper: #fbf8f1;
+      --white: #fffefa;
+      --red: #d94335;
+      --red-dark: #b93227;
+      --green: #244f3c;
+      --line: #e7e0d5;
+      --gold: #e9bd61;
+      --radius: 18px;
+      --shadow: 0 12px 32px rgba(32,37,31,.08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--paper); color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.5;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    button, .button { cursor: pointer; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    .topbar { background: var(--green); color: white; text-align: center; padding: 9px 12px; font-size: .82rem; letter-spacing: .02em; }
+    header { background: rgba(251,248,241,.95); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px); }
+    .nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 1.45rem; letter-spacing: .08em; }
+    .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; color: white; background: var(--red); font-size: .8rem; letter-spacing: 0; }
+    .navlinks { display: flex; gap: 26px; align-items: center; color: #444c43; font-size: .92rem; }
+    .navlinks a:hover { color: var(--red); }
+    .cart { border: 1px solid var(--line); border-radius: 999px; padding: 9px 14px; background: var(--white); font-weight: 700; white-space: nowrap; }
+    .hero { padding: 56px 0 64px; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1.03fr .97fr; gap: 42px; align-items: center; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--green); text-transform: uppercase; font-weight: 800; letter-spacing: .12em; font-size: .76rem; }
+    .eyebrow:before { content: ""; width: 24px; height: 2px; background: var(--red); }
+    h1 { font-size: clamp(2.65rem, 5.2vw, 4.65rem); line-height: .99; letter-spacing: -.055em; margin: 18px 0; max-width: 650px; }
+    h1 span { color: var(--red); }
+    .hero p { color: var(--muted); max-width: 510px; font-size: 1.08rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 27px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 999px; padding: 14px 21px; font-weight: 800; transition: transform .15s, background .15s; }
+    .button:hover { transform: translateY(-2px); }
+    .primary { background: var(--red); color: white; }
+    .primary:hover { background: var(--red-dark); }
+    .secondary { border: 1px solid var(--line); background: var(--white); }
+    .microcopy { margin-top: 16px; font-size: .82rem !important; }
+    .hero-art { position: relative; min-height: 400px; display: grid; place-items: center; }
+    .art-circle { width: min(390px, 90%); aspect-ratio: 1; border-radius: 50%; background: #f0dfbd; position: relative; display: grid; place-items: center; }
+    .sun { position: absolute; width: 60%; aspect-ratio: 1; background: var(--red); border-radius: 50%; top: 8%; right: -3%; opacity: .95; }
+    .bowl { position: relative; z-index: 1; width: 66%; height: 42%; border-radius: 12% 12% 48% 48%; background: #fffdf7; border: 8px solid #e6e1d5; box-shadow: 0 18px 20px rgba(40,30,20,.12); transform: rotate(-8deg); display: flex; align-items: center; justify-content: center; gap: 8px; overflow: hidden; }
+    .bowl:before { content: ""; position: absolute; width: 110%; height: 25px; background: #d9b26b; top: 16%; border-radius: 50%; }
+    .noodle { position: absolute; top: 14%; left: 16%; width: 66%; height: 48%; border: 5px solid #e8bd68; border-radius: 50%; transform: rotate(16deg); }
+    .noodle.n2 { transform: rotate(-20deg); top: 22%; left: 12%; border-color: #f2d99d; }
+    .topping { position: absolute; z-index: 2; width: 35px; height: 35px; border-radius: 50%; background: #4c8058; border: 4px solid #f6f0df; }
+    .t1 { top: 30%; left: 28%; } .t2 { top: 35%; right: 24%; background: #df7c53; }
+    .t3 { top: 55%; left: 43%; background: #e9c66e; }
+    .chop { position: absolute; width: 58%; height: 8px; border-radius: 99px; background: #9a603e; right: -2%; top: 24%; transform: rotate(35deg); z-index: 3; }
+    .sticker { position: absolute; z-index: 4; bottom: 8%; left: 2%; background: var(--green); color: white; width: 105px; height: 105px; border-radius: 50%; display: grid; place-items: center; text-align: center; font-size: .78rem; font-weight: 800; line-height: 1.25; transform: rotate(-12deg); border: 5px solid var(--paper); }
+    .float-card { position: absolute; z-index: 4; top: 7%; left: 0; background: var(--white); padding: 12px 16px; border-radius: 13px; box-shadow: var(--shadow); font-size: .84rem; font-weight: 800; }
+    .trust { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #f6f0e5; }
+    .trust-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; padding: 19px 0; text-align: center; font-size: .88rem; font-weight: 700; }
+    .trust-row span { color: var(--green); margin-right: 7px; }
+    section { padding: 74px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
+    .section-head h2, .story h2, .offer h2 { margin: 10px 0 0; font-size: clamp(2rem, 3.7vw, 3rem); line-height: 1.04; letter-spacing: -.04em; }
+    .section-head p { max-width: 390px; color: var(--muted); margin: 0; }
+    .products { display: grid; grid-template-columns: repeat(4,1fr); gap: 17px; }
+    .product { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; transition: transform .2s, box-shadow .2s; }
+    .product:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .product-art { min-height: 180px; display: grid; place-items: center; position: relative; background: #f3ead8; overflow: hidden; }
+    .product:nth-child(2) .product-art { background: #e7eee2; }
+    .product:nth-child(3) .product-art { background: #f5e3df; }
+    .product:nth-child(4) .product-art { background: #e8e5f1; }
+    .pack { width: 82px; height: 112px; border-radius: 8px 8px 13px 13px; background: #d54a39; color: white; display: grid; place-items: center; text-align: center; font-weight: 900; box-shadow: 8px 9px 0 rgba(32,37,31,.09); transform: rotate(-5deg); padding: 8px; }
+    .pack small { font-size: .56rem; letter-spacing: .12em; }
+    .product:nth-child(2) .pack { background: #344e3c; transform: rotate(4deg); }
+    .product:nth-child(3) .pack { background: #f0c96f; color: #453629; transform: rotate(-2deg); }
+    .product:nth-child(4) .pack { background: #6f6a9b; transform: rotate(5deg); }
+    .product-body { padding: 17px; }
+    .tag { color: var(--green); font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+    .product h3 { margin: 6px 0; font-size: 1.05rem; }
+    .product p { color: var(--muted); font-size: .88rem; min-height: 42px; margin: 0 0 15px; }
+    .product-bottom { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .price { font-weight: 900; font-size: 1.1rem; }
+    .add { width: 37px; height: 37px; border: 0; border-radius: 50%; color: white; background: var(--green); font-size: 1.35rem; line-height: 1; }
+    .price-note { font-size: .78rem; color: var(--muted); margin-top: 16px; }
+    .story-wrap { background: var(--green); color: white; }
+    .story { display: grid; grid-template-columns: .9fr 1.1fr; gap: 48px; align-items: center; }
+    .story .eyebrow { color: #d5e3d4; }
+    .story p { color: #d5e0d7; max-width: 570px; }
+    .story-art { min-height: 270px; background: #d6e1d2; border-radius: 22px; display: grid; place-items: center; position: relative; overflow: hidden; }
+    .story-art .big-jp { font-size: clamp(6rem, 15vw, 10rem); font-weight: 900; color: var(--red); line-height: 1; transform: rotate(-8deg); }
+    .story-art:before, .story-art:after { content: ""; position: absolute; border: 2px solid rgba(36,79,60,.28); border-radius: 50%; width: 250px; height: 250px; }
+    .story-art:after { width: 330px; height: 330px; }
+    .story-art .caption { position: absolute; bottom: 20px; right: 20px; color: var(--green); font-size: .78rem; font-weight: 800; letter-spacing: .12em; }
+    .offer { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 28px; background: #f1dfbd; border-radius: 24px; padding: clamp(26px,5vw,52px); }
+    .offer p { color: #5b5c4d; margin-bottom: 0; }
+    .offer-code { background: var(--white); border: 1px dashed #b89c68; border-radius: 14px; padding: 16px 22px; text-align: center; min-width: 165px; }
+    .offer-code strong { display: block; font-size: 1.35rem; letter-spacing: .08em; }
+    .offer-code small { color: var(--muted); }
+    .delivery-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .delivery-card { padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); }
+    .delivery-icon { font-size: 1.65rem; }
+    .delivery-card h3 { margin: 10px 0 5px; }
+    .delivery-card p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .newsletter { background: #f2e9dc; }
+    .newsletter-row { display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .newsletter h2 { margin: 0 0 8px; font-size: clamp(1.8rem,3.4vw,2.5rem); letter-spacing: -.04em; }
+    .newsletter p { margin: 0; color: var(--muted); }
+    .signup { display: flex; gap: 8px; width: min(460px,100%); }
+    .signup input { flex: 1; min-width: 0; border: 1px solid #d8cebf; background: var(--white); border-radius: 999px; padding: 13px 17px; outline-color: var(--green); }
+    footer { background: #202a23; color: #e8ede7; padding: 32px 0; }
+    .footer-row { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+    footer p { color: #b8c4b9; margin: 5px 0 0; font-size: .82rem; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; color: #d5dfd6; font-size: .86rem; }
+    .toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 150%); background: var(--ink); color: white; border-radius: 999px; padding: 12px 20px; box-shadow: var(--shadow); z-index: 20; transition: transform .25s; font-size: .9rem; }
+    .toast.show { transform: translate(-50%,0); }
+    @media (max-width: 850px) {
+      .navlinks { gap: 14px; }
+      .hero-grid { gap: 16px; }
+      .hero-art { min-height: 330px; }
+      .products { grid-template-columns: repeat(2,1fr); }
+      .story { gap: 28px; }
+    }
+    @media (max-width: 620px) {
+      .wrap { width: min(100% - 28px, 520px); }
+      .topbar { font-size: .74rem; }
+      .nav { min-height: 62px; }
+      .navlinks { display: none; }
+      .brand { font-size: 1.25rem; }
+      .cart { padding: 8px 11px; font-size: .85rem; }
+      .hero { padding: 40px 0 36px; }
+      .hero-grid { grid-template-columns: 1fr; }
+      h1 { font-size: clamp(2.75rem, 13vw, 4rem); }
+      .hero p { font-size: 1rem; }
+      .hero-art { min-height: 300px; margin-top: 5px; }
+      .art-circle { width: min(300px, 82%); }
+      .float-card { left: 1%; top: 2%; }
+      .sticker { width: 85px; height: 85px; font-size: .68rem; }
+      .trust-row { grid-template-columns: 1fr; gap: 8px; padding: 15px 0; text-align: left; }
+      section { padding: 52px 0; }
+      .section-head { display: block; }
+      .section-head p { margin-top: 12px; }
+      .products { gap: 10px; }
+      .product-art { min-height: 145px; }
+      .pack { transform: scale(.9) rotate(-5deg); }
+      .product-body { padding: 13px; }
+      .product p { min-height: 62px; font-size: .82rem; }
+      .product h3 { font-size: .97rem; }
+      .price { font-size: 1rem; }
+      .story { grid-template-columns: 1fr; }
+      .story-art { min-height: 230px; order: -1; }
+      .offer { grid-template-columns: 1fr; }
+      .offer-code { justify-self: start; }
+      .delivery-grid { grid-template-columns: 1fr; }
+      .newsletter-row { display: block; }
+      .signup { margin-top: 20px; }
+      .signup .button { padding: 12px 15px; }
+      .footer-row { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">Un pequeño viaje a Japón, directo a tu despensa · Envíos en España</div>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#inicio" aria-label="GENKI, inicio"><span class="brand-mark">元気</span> GENKI</a>
+      <nav class="navlinks" aria-label="Navegación principal">
+        <a href="#productos">Productos</a>
+        <a href="#historia">Nuestra idea</a>
+        <a href="#envios">Envíos</a>
+      </nav>
+      <button class="cart" id="cartButton" aria-label="Ver carrito">Cesta (<span id="cartCount">0</span>)</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">Tu despensa, con un toque japonés</span>
+          <h1>Japón está más cerca de <span>lo que crees.</span></h1>
+          <p>Descubre sabores cotidianos de Japón: noodles, snacks, salsas y té para darle un giro delicioso a tus comidas, sin salir de casa.</p>
+          <div class="actions">
+            <a class="button primary" href="#productos">Explorar productos <span aria-hidden="true">&nbsp;→</span></a>
+            <a class="button secondary" href="#oferta">Ver oferta de bienvenida</a>
+          </div>
+          <p class="microcopy">Para curiosos, cocineros caseros y amantes de Japón. Sin complicaciones.</p>
+        </div>
+        <div class="hero-art" aria-label="Ilustración de un bol de noodles japoneses" role="img">
+          <div class="art-circle">
+            <div class="sun"></div>
+            <div class="bowl"><div class="noodle"></div><div class="noodle n2"></div><div class="topping t1"></div><div class="topping t2"></div><div class="topping t3"></div></div>
+            <div class="chop"></div>
+          </div>
+          <div class="float-card">🍜 Tu próxima comida favorita</div>
+          <div class="sticker">SABORES<br>DE JAPÓN<br>毎日の楽しみ</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="trust">
+      <div class="wrap trust-row">
+        <div><span>✓</span> Productos seleccionados</div>
+        <div><span>✓</span> Compra sencilla y segura</div>
+        <div><span>✓</span> Entrega en España peninsular*</div>
+      </div>
+    </div>
+
+    <section id="productos">
+      <div class="wrap">
+        <div class="section-head">
+          <div><span class="eyebrow">Descubre tu favorito</span><h2>Pequeños placeres,<br>grandes sabores.</h2></div>
+          <p>Una selección para empezar a explorar la despensa japonesa: básicos versátiles y caprichos para cualquier día.</p>
+        </div>
+        <div class="products">
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>JAPANESE</small><span>RAMEN<br>ラーメン</span></div></div>
+            <div class="product-body"><span class="tag">Listo en minutos</span><h3>Ramen clásico</h3><p>Un bol reconfortante para una comida rápida y sabrosa.</p><div class="product-bottom"><span class="price">2,50 €</span><button class="add" data-product="Ramen clásico" aria-label="Añadir Ramen clásico a la cesta">+</button></div></div>
+          </article>
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>UMAMI</small><span>SALSA<br>しょうゆ</span></div></div>
+            <div class="product-body"><span class="tag">Un básico</span><h3>Salsa de soja</h3><p>El toque umami para salteados, arroz, marinados y dips.</p><div class="product-bottom"><span class="price">3,90 €</span><button class="add" data-product="Salsa de soja" aria-label="Añadir Salsa de soja a la cesta">+</button></div></div>
+          </article>
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>CRUNCHY</small><span>RICE<br>CRACKERS</span></div></div>
+            <div class="product-body"><span class="tag">Para picar</span><h3>Snacks de arroz</h3><p>Crujientes, sabrosos y perfectos para compartir.</p><div class="product-bottom"><span class="price">2,95 €</span><button class="add" data-product="Snacks de arroz" aria-label="Añadir Snacks de arroz a la cesta">+</button></div></div>
+          </article>
+          <article class="product">
+            <div class="product-art"><div class="pack"><small>DAILY TEA</small><span>MATCHA<br>抹茶</span></div></div>
+            <div class="product-body"><span class="tag">Pausa tranquila</span><h3>Té matcha</h3><p>Una bebida de sabor vegetal para cambiar tu rutina.</p><div class="product-bottom"><span class="price">8,90 €</span><button class="add" data-product="Té matcha" aria-label="Añadir Té matcha a la cesta">+</button></div></div>
+          </article>
+        </div>
+        <p class="price-note">Precios ilustrativos para el prototipo. Sustituir por precios y referencias reales antes de publicar.</p>
+      </div>
+    </section>
+
+    <div class="story-wrap" id="historia">
+      <section class="wrap story">
+        <div>
+          <span class="eyebrow">Nuestra idea</span>
+          <h2>Un poco de Japón en tu día a día.</h2>
+          <p>GENKI acerca productos japoneses a quienes quieren probar algo nuevo, cocinar con más curiosidad o reencontrarse con sabores que ya conocen.</p>
+          <p>Sin necesitar una receta complicada: elige un producto, prueba una combinación y hazlo parte de tu rutina.</p>
+          <a class="button secondary" href="#productos">Encuentra algo nuevo <span aria-hidden="true">&nbsp;→</span></a>
+        </div>
+        <div class="story-art" role="img" aria-label="Diseño gráfico inspirado en Japón"><span class="big-jp">日本</span><span class="caption">NUEVOS SABORES · CADA DÍA</span></div>
+      </section>
+    </div>
+
+    <section id="oferta">
+      <div class="wrap">
+        <div class="offer">
+          <div><span class="eyebrow">Primera compra</span><h2>Empieza con un 10 % de descuento.</h2><p>Descubre tus favoritos y disfruta de una pequeña bienvenida a GENKI.</p></div>
+          <div class="offer-code"><small>Introduce el código</small><strong>GENKI10</strong><small>en tu primera compra*</small></div>
+        </div>
+        <p class="price-note">*Oferta promocional de ejemplo. Configurar condiciones, fechas y código en la tienda antes de publicarla.</p>
+      </div>
+    </section>
+
+    <section id="envios">
+      <div class="wrap">
+        <div class="section-head"><div><span class="eyebrow">Comprar sin complicaciones</span><h2>De nuestra selección<br>a tu puerta.</h2></div><p>Información pensada para comprar desde España. Confirma cobertura, tarifas y plazos reales antes del lanzamiento.</p></div>
+        <div class="delivery-grid">
+          <article class="delivery-card"><div class="delivery-icon">📦</div><h3>Envíos nacionales</h3><p>Entrega prevista en España peninsular, con seguimiento del pedido.</p></article>
+          <article class="delivery-card"><div class="delivery-icon">🛍️</div><h3>Compra fácil</h3><p>Explora la selección, añade tus favoritos y prepara tu próxima receta.</p></article>
+          <article class="delivery-card"><div class="delivery-icon">🍵</div><h3>Para cada ocasión</h3><p>Básicos de despensa, snacks para compartir y algo nuevo que descubrir.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="newsletter">
+      <div class="wrap newsletter-row">
+        <div><h2>Un poco de Japón en tu inbox.</h2><p>Novedades, ideas fáciles y productos para descubrir.</p></div>
+        <form class="signup" id="signupForm"><label for="email" class="sr-only" style="position:absolute;left:-9999px">Tu correo electrónico</label><input type="email" id="email" placeholder="Tu correo electrónico" required=""><button class="button primary" type="submit">Me apunto</button></form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <div><a class="brand" href="#inicio"><span class="brand-mark">元気</span> GENKI</a><p>Sabores japoneses para tu día a día.</p></div>
+      <div class="footer-links"><a href="#productos">Productos</a><a href="#envios">Envíos y devoluciones</a><a href="mailto:hola@genki.example">Contacto</a></div>
+    </div>
+    <div class="wrap"><p style="margin-top:22px">© 2026 GENKI · Prototipo de landing page. Marca, catálogo, precios, logística y condiciones sujetos a validación.</p></div>
+  </footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    let cartCount = 0;
+    const cartCountEl = document.getElementById('cartCount');
+    const toast = document.getElementById('toast');
+    let toastTimer;
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
+    }
+    document.querySelectorAll('.add').forEach(button => {
+      button.addEventListener('click', () => {
+        cartCount += 1;
+        cartCountEl.textContent = cartCount;
+        showToast(button.dataset.product + ' añadido a tu cesta (demo).');
+      });
+    });
+    document.getElementById('cartButton').addEventListener('click', () => {
+      showToast(cartCount ? 'Tu cesta tiene ' + cartCount + ' producto(s). El pago aún no está conectado.' : 'Tu cesta está vacía. ¡Descubre los productos!');
+    });
+    document.getElementById('signupForm').addEventListener('submit', event => {
+      event.preventDefault();
+      showToast('¡Gracias! El formulario es una demo y aún no guarda correos.');
+      event.target.reset();
+    });
+  </script>
+
+
+</body></html>
